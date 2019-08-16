@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/include/gnss_state/",
-                "/opt/ros/dashing/include/**"
+                "/opt/ros/dashing/include/**",
+                "/home/somalwar/ros2_example_ws/build/gnss_state/rosidl_generator_cpp"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

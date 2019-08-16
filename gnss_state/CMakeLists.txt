@@ -14,7 +14,11 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(gnss_state REQUIRED)
 
 include_directories(include)
 
@@ -32,9 +36,14 @@ if(NOT WIN32)
     )
 endif()
 
+rosidl_generate_interfaces(gnss_state
+"msg/State.msg"
+DEPENDENCIES builtin_interfaces)
+
+
 add_executable(standalone_state_node src/standalone_state_node.cpp)
 target_link_libraries(standalone_state_node composition_node)
-ament_target_dependencies(standalone_state_node rclcpp class_loader)
+ament_target_dependencies(standalone_state_node rclcpp class_loader gnss_state)
 
 install(TARGETS
   composition_node
