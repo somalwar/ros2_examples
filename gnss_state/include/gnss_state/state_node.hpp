@@ -11,7 +11,7 @@
 class GnssStateNode : public rclcpp::Node
 {
     public:
-    GNSS_STATE_PUBLIC GnssStateNode();
+    GNSS_STATE_PUBLIC GnssStateNode(rclcpp::NodeOptions options);
 
     private:
     void publisher_callback();

@@ -8,8 +8,8 @@
 
 using namespace std::chrono_literals;
 
-GnssStateNode::GnssStateNode()
-: Node("gnss_state_node")
+GnssStateNode::GnssStateNode(rclcpp::NodeOptions options)
+: Node("gnss_state_node", options)
 {
     sat_subscription_ = create_subscription<sensor_msgs::msg::NavSatFix>(
         "navsatfix_topic", 10, [this](sensor_msgs::msg::NavSatFix::UniquePtr msg) {

@@ -20,7 +20,6 @@ include_directories(include)
 
 add_library(composition_node SHARED
             src/state_node.cpp)
-
 target_compile_definitions(composition_node
   PRIVATE "GNSS_STATE_DLL")
 ament_target_dependencies(composition_node rclcpp rclcpp_components std_msgs sensor_msgs)
@@ -33,11 +32,6 @@ if(NOT WIN32)
     )
 endif()
 
-add_executable(state_node src/state_node.cpp)
-target_link_libraries(state_node composition_node)
-ament_target_dependencies(state_node
-  rclcpp)
-
 add_executable(standalone_state_node src/standalone_state_node.cpp)
 target_link_libraries(standalone_state_node composition_node)
 ament_target_dependencies(standalone_state_node rclcpp class_loader)
@@ -49,7 +43,6 @@ install(TARGETS
   RUNTIME DESTINATION bin)
 
 install(TARGETS
-  state_node
   standalone_state_node
   DESTINATION lib/${PROJECT_NAME})
 
