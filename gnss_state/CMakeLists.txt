@@ -10,21 +10,23 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
 include_directories(include)
 
 add_library(composition_node SHARED
-  src/state_node.cpp)
-target_compile_definitions(composition_node
-PRIVATE "GNSS_STATE_DLL"
-ament_target_dependencies(composition_node rclcpp rclcpp_components std_msgs sensor_msgs))
+            src/state_node.cpp)
 
+target_compile_definitions(composition_node
+  PRIVATE "GNSS_STATE_DLL")
+ament_target_dependencies(composition_node rclcpp rclcpp_components std_msgs sensor_msgs)
+
+# This package installs libraries without exporting them.
+# Export the library path to ensure that the installed libraries are available.
 if(NOT WIN32)
   ament_environment_hooks(
     "${ament_cmake_package_templates_ENVIRONMENT_HOOK_LIBRARY_PATH}"
